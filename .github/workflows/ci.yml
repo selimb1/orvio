@@ -1,0 +1,47 @@
+# ============================================================
+# Comprobar — CI/CD Workflow
+# File: .github/workflows/ci.yml
+# ============================================================
+
+name: Integration Pipeline
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+
+jobs:
+  validate:
+    name: Lint, Build, Typecheck and Test
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint Code
+        run: npm run lint --if-present
+
+      - name: Type-Check (TypeScript)
+        run: npm run typecheck --if-present
+
+      - name: Run Vitest Unit Tests
+        run: npm run test
+
+      - name: Security Vulnerability Audit
+        run: npm run audit:check --if-present
+        continue-on-error: true # Warning but not block pipeline for minor issues

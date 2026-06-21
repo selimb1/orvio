@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-gray: #1A1A1A;
+}
+
+/* ============================================================
+   ORVIO — Design System
+   Paleta: Azul marino profesional + acentos índigo/violeta
+   Dark mode nativo
+   ============================================================ */
+
+:root {
+  /* Colores base */
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --foreground: #0f172a;
+  --foreground-muted: #64748b;
+  --foreground-subtle: #94a3b8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Primario — Azul marino */
+  --primary: #1e40af;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --primary-foreground: #ffffff;
+
+  /* Acento — Índigo */
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-light: #ede9fe;
+  --accent-foreground: #ffffff;
+
+  /* Semánticos */
+  --success: #059669;
+  --success-light: #d1fae5;
+  --warning: #d97706;
+  --warning-light: #fef3c7;
+  --danger: #dc2626;
+  --danger-light: #fee2e2;
+  --info: #0284c7;
+  --info-light: #e0f2fe;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Sidebar */
+  --sidebar-bg: #0f172a;
+  --sidebar-fg: #e2e8f0;
+  --sidebar-muted: #94a3b8;
+  --sidebar-accent: #1e40af;
+  --sidebar-accent-light: #1e3a8a;
+  --sidebar-border: #1e293b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0f1e;
+    --surface: #0f172a;
+    --surface-2: #1e293b;
+    --foreground: #f1f5f9;
+    --foreground-muted: #94a3b8;
+    --foreground-subtle: #64748b;
+    --border: #1e293b;
+    --border-strong: #334155;
+
+    --primary-light: #1e3a8a;
+    --accent-light: #312e81;
+    --success-light: #064e3b;
+    --warning-light: #78350f;
+    --danger-light: #7f1d1d;
+    --info-light: #0c4a6e;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6);
+  }
+}
+
+/* ============================================================
+   Reset y base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  line-height: 1.5;
+  min-height: 100dvh;
+}
+
+/* ============================================================
+   Tipografía
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+
+/* ============================================================
+   Scrollbar personalizado
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-subtle);
+}
+
+/* ============================================================
+   Selección de texto
+   ============================================================ */
+::selection {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* ============================================================
+   Focus ring accesible
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Animaciones de micro-interacción
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in   { animation: fadeIn 0.3s ease both; }
+.animate-slide-in  { animation: slideIn 0.25s ease both; }
+.animate-spin-slow { animation: spin 1.5s linear infinite; }
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--border) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   Componentes reutilizables (clases de utilidad)
+   ============================================================ */
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-elevated {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.badge-success  { background: var(--success-light);  color: var(--success); }
+.badge-warning  { background: var(--warning-light);  color: var(--warning); }
+.badge-danger   { background: var(--danger-light);   color: var(--danger); }
+.badge-info     { background: var(--info-light);     color: var(--info); }
+.badge-primary  { background: var(--primary-light);  color: var(--primary); }
+.badge-neutral  { background: var(--surface-2);      color: var(--foreground-muted); }
+
+/* Tabla de datos */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.data-table thead th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--foreground-muted);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.data-table tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.data-table tbody td {
+  padding: 0.875rem 1rem;
+  vertical-align: middle;
+}
+
+.data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Disclaimer contable */
+.disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: var(--warning-light);
+  border: 1px solid var(--warning);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  color: var(--warning);
+  line-height: 1.5;
+}
