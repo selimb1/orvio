@@ -30,7 +30,7 @@ CREATE TYPE audit_action AS ENUM (
 CREATE TABLE accounting_firms (
   id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   name          TEXT NOT NULL,
-  cuit          TEXT NOT NULL UNIQUE CHECK (cuit ~ '^\d{2}-\d{8}-\d$'),
+  cuit          TEXT UNIQUE CHECK (cuit IS NULL OR cuit ~ '^\d{2}-\d{8}-\d$'),
   created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

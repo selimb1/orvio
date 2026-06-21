@@ -15,6 +15,11 @@ validateEnv();
 
 const app = express();
 
+// Confiar en un solo nivel de proxy (Next.js dev proxy o nginx en producción)
+// Necesario para que express-rate-limit pueda leer la IP correctamente
+app.set('trust proxy', 1);
+
+
 // ============================================================
 // Headers de seguridad — Helmet
 // ============================================================

@@ -116,11 +116,9 @@ function RegisterContent() {
 
     setLoading(true);
     try {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-
       let res: Response;
       try {
-        res = await fetch(`${apiBase}/api/auth/register`, {
+        res = await fetch('/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
-import { supabaseAdmin } from '../lib/supabase';
+import { supabaseAdmin, supabaseAnon } from '../lib/supabase';
 import { AppError } from '../middleware/errorHandler';
 import { auditService } from '../services/auditService';
 import { logger } from '../utils/logger';
@@ -49,7 +49,7 @@ authRouter.post('/login', async (req: Request, res: Response, next: NextFunction
     const { email, password } = loginSchema.parse(req.body);
 
     // Registrar intento de login (siempre, independientemente del resultado)
-    const { data: authData, error: authError } = await supabaseAdmin.auth.signInWithPassword({
+    const { data: authData, error: authError } = await supabaseAnon.auth.signInWithPassword({
       email,
       password,
     });
@@ -81,7 +81,7 @@ authRouter.post('/login', async (req: Request, res: Response, next: NextFunction
       .eq('id', authData.user.id)
       .single();
 
-    if (!userData?.is_active) {
+    if (!userData || !userData.is_active) {
       throw new AppError(403, 'Cuenta desactivada. Contactá al administrador.');
     }
 
@@ -293,6 +293,7 @@ authRouter.post('/register', async (req: Request, res: Response, next: NextFunct
       .single();
 
     if (firmError || !firm) {
+      console.error('Error al crear el estudio contable:', firmError);
       // Revertir: eliminar usuario de Auth
       await supabaseAdmin.auth.admin.deleteUser(authUserId);
       throw new AppError(500, 'No se pudo crear el estudio contable.');
