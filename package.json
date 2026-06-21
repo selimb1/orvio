@@ -16,7 +16,7 @@
     "audit:check": "npm audit --audit-level=critical --workspace=backend && npm audit --audit-level=critical --workspace=frontend"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0"
+    "concurrently": "^10.0.3"
   },
   "engines": {
     "node": ">=20.0.0",
